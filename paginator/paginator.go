@@ -116,6 +116,25 @@ func (p *Paginator) AppendPaginationQuery(db *gorm.DB, dest interface{}) (result
 	return
 }
 
+func (p *Paginator) GetPaginationQuery(db *gorm.DB, dest interface{}) (string, error) {
+	stmt1 := db.Model(&dest).Where("1=1")
+	stmt1.DryRun = true
+	stmt1, err := p.AppendPaginationQuery(stmt1, &dest)
+	if err != nil {
+		return "", err
+	}
+	sql := db.ToSQL(func(tx *gorm.DB) *gorm.DB {
+		return stmt1.Find(&dest)
+	})
+	stmt1.DryRun = false
+	splits := strings.Split(sql, "WHERE 1=1")
+	if len(splits) < 2 {
+		return "", nil
+	}
+	sql = strings.TrimSpace(splits[1])
+	return sql, nil
+}
+
 // GetCursor  gets new cursor from dest
 func (p *Paginator) GetCursor(dest interface{}) (c Cursor, err error) {
 	// dest must be a pointer type or gorm will panic above
