@@ -99,7 +99,7 @@ func (p *Paginator) Paginate(db *gorm.DB, dest interface{}) (result *gorm.DB, c 
 }
 
 // AppendPaginationQuery appends pagination query to db
-func (p *Paginator) AppendPaginationQuery(db *gorm.DB, dest interface{}) (result *gorm.DB, c Cursor, err error) {
+func (p *Paginator) AppendPaginationQuery(db *gorm.DB, dest interface{}) (result *gorm.DB, err error) {
 	if err = p.validate(db, dest); err != nil {
 		return
 	}
