@@ -98,6 +98,44 @@ func (p *Paginator) Paginate(db *gorm.DB, dest interface{}) (result *gorm.DB, c 
 	return
 }
 
+// AppendPaginationQuery appends pagination query to db
+func (p *Paginator) AppendPaginationQuery(db *gorm.DB, dest interface{}) (result *gorm.DB, c Cursor, err error) {
+	if err = p.validate(db, dest); err != nil {
+		return
+	}
+	if err = p.setup(db, dest); err != nil {
+		return
+	}
+	fields, err := p.DecodeCursor(dest)
+	if err != nil {
+		return
+	}
+	if result = p.AppendPagingQuery(db, fields); result.Error != nil {
+		return
+	}
+	return
+}
+
+// GetCursor  gets new cursor from dest
+func (p *Paginator) GetCursor(dest interface{}) (c Cursor, err error) {
+	// dest must be a pointer type or gorm will panic above
+	elems := reflect.ValueOf(dest).Elem()
+	// only encode next cursor when elems is not empty slice
+	if elems.Kind() == reflect.Slice && elems.Len() > 0 {
+		hasMore := elems.Len() > p.limit
+		if hasMore {
+			elems.Set(elems.Slice(0, elems.Len()-1))
+		}
+		if p.isBackward() {
+			elems.Set(reverse(elems))
+		}
+		if c, err = p.EncodeCursor(elems, hasMore); err != nil {
+			return
+		}
+	}
+	return
+}
+
 /* private */
 
 func (p *Paginator) validate(db *gorm.DB, dest interface{}) (err error) {
