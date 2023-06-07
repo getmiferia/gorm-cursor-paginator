@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"reflect"
 
-	"github.com/pilagod/gorm-cursor-paginator/v2/internal/util"
+	"github.com/getmiferia/gorm-cursor-paginator/v2/internal/util"
 )
 
 // NewEncoder creates cursor encoder
