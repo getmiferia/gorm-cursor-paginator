@@ -73,11 +73,11 @@ func (p *Paginator) Paginate(db *gorm.DB, dest interface{}) (result *gorm.DB, c 
 	if err = p.setup(db, dest); err != nil {
 		return
 	}
-	fields, err := p.decodeCursor(dest)
+	fields, err := p.DecodeCursor(dest)
 	if err != nil {
 		return
 	}
-	if result = p.appendPagingQuery(db, fields).Find(dest); result.Error != nil {
+	if result = p.AppendPagingQuery(db, fields).Find(dest); result.Error != nil {
 		return
 	}
 	// dest must be a pointer type or gorm will panic above
@@ -91,7 +91,7 @@ func (p *Paginator) Paginate(db *gorm.DB, dest interface{}) (result *gorm.DB, c 
 		if p.isBackward() {
 			elems.Set(reverse(elems))
 		}
-		if c, err = p.encodeCursor(elems, hasMore); err != nil {
+		if c, err = p.EncodeCursor(elems, hasMore); err != nil {
 			return
 		}
 	}
@@ -167,7 +167,7 @@ func isNil(i interface{}) bool {
 	return false
 }
 
-func (p *Paginator) decodeCursor(dest interface{}) (result []interface{}, err error) {
+func (p *Paginator) DecodeCursor(dest interface{}) (result []interface{}, err error) {
 	if p.isForward() {
 		if result, err = cursor.NewDecoder(p.getDecoderFields()).Decode(*p.cursor.After, dest); err != nil {
 			err = ErrInvalidCursor
@@ -195,20 +195,20 @@ func (p *Paginator) isBackward() bool {
 	return !p.isForward() && p.cursor.Before != nil
 }
 
-func (p *Paginator) appendPagingQuery(db *gorm.DB, fields []interface{}) *gorm.DB {
+func (p *Paginator) AppendPagingQuery(db *gorm.DB, fields []interface{}) *gorm.DB {
 	stmt := db
 	stmt = stmt.Limit(p.limit + 1)
-	stmt = stmt.Order(p.buildOrderSQL())
+	stmt = stmt.Order(p.BuildOrderSQL())
 	if len(fields) > 0 {
 		stmt = stmt.Where(
-			p.buildCursorSQLQuery(),
-			p.buildCursorSQLQueryArgs(fields)...,
+			p.BuildCursorSQLQuery(),
+			p.BuildCursorSQLQueryArgs(fields)...,
 		)
 	}
 	return stmt
 }
 
-func (p *Paginator) buildOrderSQL() string {
+func (p *Paginator) BuildOrderSQL() string {
 	orders := make([]string, len(p.rules))
 	for i, rule := range p.rules {
 		order := rule.Order
@@ -220,7 +220,7 @@ func (p *Paginator) buildOrderSQL() string {
 	return strings.Join(orders, ", ")
 }
 
-func (p *Paginator) buildCursorSQLQuery() string {
+func (p *Paginator) BuildCursorSQLQuery() string {
 	queries := make([]string, len(p.rules))
 	query := ""
 	for i, rule := range p.rules {
@@ -237,14 +237,14 @@ func (p *Paginator) buildCursorSQLQuery() string {
 	return strings.Join(queries, " OR ")
 }
 
-func (p *Paginator) buildCursorSQLQueryArgs(fields []interface{}) (args []interface{}) {
+func (p *Paginator) BuildCursorSQLQueryArgs(fields []interface{}) (args []interface{}) {
 	for i := 1; i <= len(fields); i++ {
 		args = append(args, fields[:i]...)
 	}
 	return
 }
 
-func (p *Paginator) encodeCursor(elems reflect.Value, hasMore bool) (result Cursor, err error) {
+func (p *Paginator) EncodeCursor(elems reflect.Value, hasMore bool) (result Cursor, err error) {
 	encoder := cursor.NewEncoder(p.getEncoderFields())
 	// encode after cursor
 	if p.isBackward() || hasMore {
