@@ -117,14 +117,14 @@ func (p *Paginator) AppendPaginationQuery(db *gorm.DB, dest interface{}) (result
 }
 
 func (p *Paginator) GetPaginationQuery(db *gorm.DB, dest interface{}) (string, error) {
-	stmt1 := db.Model(&dest).Where("1=1")
+	stmt1 := db.Model(dest).Where("1=1")
 	stmt1.DryRun = true
-	stmt1, err := p.AppendPaginationQuery(stmt1, &dest)
+	stmt1, err := p.AppendPaginationQuery(stmt1, dest)
 	if err != nil {
 		return "", err
 	}
 	sql := db.ToSQL(func(db *gorm.DB) *gorm.DB {
-		return stmt1.Find(&dest)
+		return stmt1.Find(dest)
 	})
 	stmt1.DryRun = false
 	splits := strings.Split(sql, "WHERE 1=1")
