@@ -9,6 +9,7 @@ var defaultConfig = Config{
 // Option for paginator
 type Option interface {
 	Apply(p *Paginator)
+	Apply1(p *SqlPaginator)
 }
 
 // Config for paginator
@@ -23,6 +24,29 @@ type Config struct {
 
 // Apply applies config to paginator
 func (c *Config) Apply(p *Paginator) {
+	if c.Rules != nil {
+		p.SetRules(c.Rules...)
+	}
+	// only set keys when no rules presented
+	if c.Rules == nil && c.Keys != nil {
+		p.SetKeys(c.Keys...)
+	}
+	if c.Limit != 0 {
+		p.SetLimit(c.Limit)
+	}
+	if c.Order != "" {
+		p.SetOrder(c.Order)
+	}
+	if c.After != "" {
+		p.SetAfterCursor(c.After)
+	}
+	if c.Before != "" {
+		p.SetBeforeCursor(c.Before)
+	}
+}
+
+// Apply1 applies config to paginator
+func (c *Config) Apply1(p *SqlPaginator) {
 	if c.Rules != nil {
 		p.SetRules(c.Rules...)
 	}

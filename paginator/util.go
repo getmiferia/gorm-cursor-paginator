@@ -1,6 +1,8 @@
 package paginator
 
-import "reflect"
+import (
+	"reflect"
+)
 
 func reverse(elems reflect.Value) reflect.Value {
 	result := reflect.MakeSlice(elems.Type(), 0, elems.Cap())
