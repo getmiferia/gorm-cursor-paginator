@@ -1,4 +1,4 @@
-module github.com/mercanto/gorm-cursor-paginator/v2
+module github.com/mercantomx/gorm-cursor-paginator/v2
 
 go 1.14
 
