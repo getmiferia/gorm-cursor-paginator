@@ -7,8 +7,8 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/getmiferia/gorm-cursor-paginator/v2/cursor"
-	"github.com/getmiferia/gorm-cursor-paginator/v2/internal/util"
+	"github.com/mercantomx/gorm-cursor-paginator/v2/cursor"
+	"github.com/mercantomx/gorm-cursor-paginator/v2/internal/util"
 )
 
 // New creates paginator

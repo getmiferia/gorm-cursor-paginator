@@ -2,7 +2,7 @@ package paginator
 
 import (
 	"fmt"
-	"github.com/getmiferia/gorm-cursor-paginator/v2/cursor"
+	"github.com/mercantomx/gorm-cursor-paginator/v2/cursor"
 	"reflect"
 	"strings"
 )

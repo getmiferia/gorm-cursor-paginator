@@ -1,8 +1,8 @@
-# gorm-cursor-paginator [![Build Status](https://travis-ci.org/getmiferia/gorm-cursor-paginator.svg?branch=master)](https://travis-ci.org/getmiferia/gorm-cursor-paginator) [![Coverage Status](https://coveralls.io/repos/github/getmiferia/gorm-cursor-paginator/badge.svg?branch=master&kill_cache=1)](https://coveralls.io/github/getmiferia/gorm-cursor-paginator?branch=master) [![Go Report Card](https://goreportcard.com/badge/github.com/getmiferia/gorm-cursor-paginator)](https://goreportcard.com/report/github.com/getmiferia/gorm-cursor-paginator)
+# gorm-cursor-paginator [![Build Status](https://travis-ci.org/mercantomx/gorm-cursor-paginator.svg?branch=master)](https://travis-ci.org/mercantomx/gorm-cursor-paginator) [![Coverage Status](https://coveralls.io/repos/github/mercantomx/gorm-cursor-paginator/badge.svg?branch=master&kill_cache=1)](https://coveralls.io/github/mercantomx/gorm-cursor-paginator?branch=master) [![Go Report Card](https://goreportcard.com/badge/github.com/mercantomx/gorm-cursor-paginator)](https://goreportcard.com/report/github.com/mercantomx/gorm-cursor-paginator)
 
 A paginator doing cursor-based pagination based on [GORM](https://github.com/go-gorm/gorm)
 
-> This doc is for v2, which uses [GORM v2](https://github.com/go-gorm/gorm). If you are using [GORM v1](https://github.com/jinzhu/gorm), please checkout [v1 doc](https://github.com/getmiferia/gorm-cursor-paginator/tree/v1).
+> This doc is for v2, which uses [GORM v2](https://github.com/go-gorm/gorm). If you are using [GORM v1](https://github.com/jinzhu/gorm), please checkout [v1 doc](https://github.com/mercantomx/gorm-cursor-paginator/tree/v1).
 
 ## Features
 
@@ -17,14 +17,14 @@ A paginator doing cursor-based pagination based on [GORM](https://github.com/go-
 ## Installation
 
 ```sh
-go get -u github.com/getmiferia/gorm-cursor-paginator/v2
+go get -u github.com/mercantomx/gorm-cursor-paginator/v2
 ```
 
 ## Usage By Example
 
 ```go
 import (
-   "github.com/getmiferia/gorm-cursor-paginator/v2/paginator"
+   "github.com/mercantomx/gorm-cursor-paginator/v2/paginator"
 )
 ```
 
@@ -174,9 +174,9 @@ type Cursor struct {
 
 That's all! Enjoy paginating in the GORM world. :tada:
 
-> For more paginating examples, please checkout [exmaple/main.go](https://github.com/getmiferia/gorm-cursor-paginator/blob/master/example/main.go) and [paginator/paginator_paginate_test.go](https://github.com/getmiferia/gorm-cursor-paginator/blob/master/paginator/paginator_paginate_test.go)
+> For more paginating examples, please checkout [exmaple/main.go](https://github.com/mercantomx/gorm-cursor-paginator/blob/master/example/main.go) and [paginator/paginator_paginate_test.go](https://github.com/mercantomx/gorm-cursor-paginator/blob/master/paginator/paginator_paginate_test.go)
 >
-> For manually encoding/decoding cursor exmaples, please checkout [cursor/encoding_test.go](https://github.com/getmiferia/gorm-cursor-paginator/blob/master/cursor/encoding_test.go)
+> For manually encoding/decoding cursor exmaples, please checkout [cursor/encoding_test.go](https://github.com/mercantomx/gorm-cursor-paginator/blob/master/cursor/encoding_test.go)
 
 ## Specification
 
@@ -222,7 +222,7 @@ Default options used by paginator when not specified:
 
   - `Type`: GoLang type of the meta attribute. 
 
-  Also, when paginating across custom types, it is expected that the `SQLRepr` & `SQLType` are set.  `SQLRepr` should contain the SQL query to get the meta attribute value, while `SQLType` should be used for type casting if needed. Check examples of [JSON custom type](https://github.com/getmiferia/gorm-cursor-paginator/blob/c91935c7488bf9907902c8005f429e719cefa96b/paginator/paginator_test.go#L65-L81) and [custom type setting](https://github.com/getmiferia/gorm-cursor-paginator/blob/c91935c7488bf9907902c8005f429e719cefa96b/paginator/paginator_paginate_test.go#L567-L617).
+  Also, when paginating across custom types, it is expected that the `SQLRepr` & `SQLType` are set.  `SQLRepr` should contain the SQL query to get the meta attribute value, while `SQLType` should be used for type casting if needed. Check examples of [JSON custom type](https://github.com/mercantomx/gorm-cursor-paginator/blob/c91935c7488bf9907902c8005f429e719cefa96b/paginator/paginator_test.go#L65-L81) and [custom type setting](https://github.com/mercantomx/gorm-cursor-paginator/blob/c91935c7488bf9907902c8005f429e719cefa96b/paginator/paginator_paginate_test.go#L567-L617).
 
 ## Changelog
 
@@ -232,7 +232,7 @@ Default options used by paginator when not specified:
 
 ### v2.4.0
 
-- Support [NamingStrategy](https://gorm.io/docs/gorm_config.html#NamingStrategy) ([#49](https://github.com/getmiferia/gorm-cursor-paginator/pull/49)), credit to [@goxiaoy](https://github.com/goxiaoy).
+- Support [NamingStrategy](https://gorm.io/docs/gorm_config.html#NamingStrategy) ([#49](https://github.com/mercantomx/gorm-cursor-paginator/pull/49)), credit to [@goxiaoy](https://github.com/goxiaoy).
 
 ### v2.3.0
 
@@ -253,6 +253,6 @@ Default options used by paginator when not specified:
 
 ## License
 
-© Cyan Ho (getmiferia), 2018-NOW
+© Cyan Ho (mercantomx), 2018-NOW
 
-Released under the [MIT License](https://github.com/getmiferia/gorm-cursor-paginator/blob/master/LICENSE)
+Released under the [MIT License](https://github.com/mercantomx/gorm-cursor-paginator/blob/master/LICENSE)

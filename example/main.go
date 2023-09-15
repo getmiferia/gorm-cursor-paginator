@@ -7,7 +7,7 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/getmiferia/gorm-cursor-paginator/v2/paginator"
+	"github.com/mercantomx/gorm-cursor-paginator/v2/paginator"
 )
 
 // Product for product model

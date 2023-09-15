@@ -4,7 +4,7 @@ import (
 	"gorm.io/gorm"
 	"reflect"
 
-	"github.com/getmiferia/gorm-cursor-paginator/v2/internal/util"
+	"github.com/mercantomx/gorm-cursor-paginator/v2/internal/util"
 )
 
 // Rule for paginator
